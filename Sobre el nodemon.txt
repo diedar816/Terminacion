@@ -1,0 +1,8 @@
+"scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  
+
+
+#comando para refrescar los cambios en la ejecución// Hasta ahora no ha funcionado
+npm install nodemon

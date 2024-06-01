@@ -1,0 +1,139 @@
+APP.Js
+
+const { app } = require('./config');
+const db = require('./db');
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//Ruta de las url
+app.get('/', (req, res) => {
+    res.render('index');
+});
+
+app.get('/contact', (req, res) => {
+    const message = req.query.message || null;
+    res.render('contact', { message: null });
+});
+
+app.get('/about', (req, res) => {
+    res.render('about');
+});
+
+app.get('/service', (req, res) => {
+    res.render('service');
+});
+
+app.get('/blog', (req, res) => {
+    res.render('blog');
+});
+
+app.get('/single', (req, res) => {
+    res.render('single');
+});
+
+//Ruta para insertar formulario contactos
+app.post('/submitContacto', (req, res) => {
+    const { nombre, email, telefono, mensaje } = req.body;
+
+    db.query('INSERT INTO contacts (nombre, email, telefono, mensaje) VALUES (?, ?, ?, ?)', [nombre, email, telefono, mensaje], (err, result) => {
+        if(err) {
+            console.log(err);
+            res.send('Error al insertar usuario');
+        }else {
+            console.log(result);
+            res.render('contact', {message: 'Nos pondremos en contacto contigo en la brevedad.'});
+            //res.send('Usuario insertado con exito!');
+        }
+    });
+});
+
+//Ruta para insertar formulario de Post
+app.post('/submitPost', (req, res) => {
+    const { nombre, email, mensaje } = req.body;
+
+    db.query('INSERT INTO pots (nombre, email, mensaje) VALUES (?, ?, ?)', [nombre, email, mensaje], (err, result) => {
+        if(err) {
+            console.log(err);
+            res.send('Error al insertar post');
+        }else {
+            console.log(result);
+            res.redirect('/blog-single?message=Gracias por comentar este post entra a verificación.');
+            //res.send('Usuario insertado con exito!');
+        }
+    });
+});
+
+//Ruta para listar los post
+app.get('/blog-single', (req, res) => {
+    const sql = 'SELECT * FROM pots';
+    db.query(sql, (err, results) => {
+        if(err) {
+            return res.status(500).send('Error al listar los post');
+        }
+        const message = req.query.message || null;
+        res.render('blog-single', { posts: results, message });
+    });
+});
+
+module.exports = app;
+
+CONFIG.JS
+
+const express = require('express');
+const path = require('path');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+//resolver las rutas statics
+app.use(express.static("public"));
+
+//Rutas motor de vistas ejs
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'public/views'));
+
+//Configuración base de datos
+const dbConfig = {
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'liberty'
+}
+
+module.exports = { app, PORT, dbConfig };
+
+DB.JS
+
+const mysql = require('mysql');
+const { dbConfig } = require('./config');
+
+//Crear la conexion a la base de datos
+const connection = mysql.createConnection(dbConfig);
+
+connection.connect((err) => {
+    if(err){
+        console.error('Error al conectar con al base de datos!!!');
+        return;
+    }
+    console.log('Conección a la base de datos exitoso!!!');
+});
+
+module.exports = connection;
+
+INDEX.JS
+
+const { app, PORT } = require('./config');
+require('./app');
+
+//Inicio server
+app.listen(PORT, () => {
+    console.log(`Servidor iniciado en el puerto:${PORT}`);
+});
+
+
+
+
+
+
+

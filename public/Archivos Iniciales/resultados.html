@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultas</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="assets/css/normalize.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header class="hero">
+        
+        <section class="hero__main container">
+            <div class="hero__texts">
+                <h1 class="hero__title">Servicios de Mensajeria de Productos</h1>
+                <h2 class="hero__copy">Envíos previa compra del producto, conforme al acuerdo de valor agregado por la compra realizada.</h2>
+            </div>
+            <figure class="hero__img">
+                <img src="assets/images/order_delivered.svg" class="hero__picture">
+            </figure>
+        </section>
+        
+    </header>
+    <div class="container">
+        <h2>Resultado</h2>
+        <div id = "f"></div>
+        <form action="/resultados" method="post">
+            <label for="resultado">Resultado:</label>
+            <input type="text" name="text" value = m>
+        </form>
+    </div>
+
+    <a href="/">Regresar al inicio</a>
+
+    <footer class="footer">
+        <div class="footer__container container">
+            <div class="footer__texts">
+                <h2 class="title">Contactanos</h2>
+    
+                <div class="footer__icons">
+                    <a href="#" class="footer__icon fab fa-facebook-f"></a>
+                    <a href="#" class="footer__icon fab fa-twitter"></a>
+                    <a href="#" class="footer__icon fab fa-instagram"></a>
+                </div>
+                
+                <nav class="footer__nav">
+                    <a href="#" class="footer__link">Inicio</a>
+                    <a href="#" class="footer__link">Sobre nosotros</a>
+                    <a href="#" class="footer__link">Trabajos</a>
+                </nav>
+    
+                <p class="footer__copy">Derechos reservados &copy; Diego Dario Perez Galindo</p>
+            </div>
+    
+            <figure class="footer__img">
+                <img src="assets/images/mail.svg" class="footer__picture">
+            </figure>
+        </div>
+    </footer>
+    <script src="https://kit.fontawesome.com/f955c68031.js" crossorigin="anonymous"></script>
+    <script src="../app.js"></script>
+</body>
+</html>

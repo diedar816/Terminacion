@@ -1,0 +1,215 @@
+1.//Segunda Parte app.js
+
+//Resolver las rutas de los archivos statatics
+app.use(express.static("public"));
+
+//Defirnir ruta para el formulario de logueo de sesión, se usa get porque lo va ha recibir por ARL.
+app.get('/login', (req, res) => {
+    res.sendFile(__dirname + '/public/login.html');
+});
+
+//Defirnir ruta para el formulario de registro de sesión
+app.get('/registro', (req, res) => {
+    res.sendFile(__dirname + '/public/registro.html');
+});
+
+/*Inicializar el servidor*/
+app.listen(PORT, () => {
+   console.log('Servidor iniciado en el puerto$(PORT)');
+});
+
+//Rutas de db
+//Puedes implementar rutas para el registro, inicio de sesión, cierre de sesión.//post porque lo ingreso un usuario desde un formulario
+app.post('/registro', async (req, res) => {
+    const { nombre, email, contraseña } = req.body;
+    const hashedContraseña = await bcrypt.hash(contraseña, 10);
+
+    db.query('INSERT INTO usuarios (nombre_usuario, email, contraseña) VALUES (?, ?, ?)',[nombre, email, hashedContraseña],(err, result)=>{
+        if(err) {
+            console.log(err);
+            res.send('Eror al registrar usuario');
+        } else {
+            console.log(result);
+            res.send('Usuario registrado con éxito!');
+        }
+    });
+});
+
+//Ruta de inicio de sesión
+app.post('/login', async (req, res) => {
+    const { email, contraseña } = req.body;
+
+    db.query('SELECT * FROM usuarios WHERE email = ?', [email], async (err, result) => {
+        if(err){
+            console.log(err);
+            res.send('Error al iniciar sesión');
+        } else {
+            if(result.length > 0) {
+                const usuario = result[0];
+                if(await bcrypt.compare(contraseña, usuario.contraseña)){
+                    req.session.usuario = usuario;
+                    res.send('Inicio de sesión exitoso');
+                } else {
+                    res.send('Credenciales incorrectas');
+                }
+            } else {
+                res.send('Usuario no encontrado');
+            }
+        }
+    });
+});
+
+//Iniciar el servidor
+app.listen(PORT, () => {
+    console.log(`Servidor iniciado en el puerto${PORT}`);
+});
+
+
+2. //package.json
+
+"devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+
+3. //login.html
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Iniciar sesión</h2>
+        <form action="/login" method="post">
+            <label for="email">Correo electronico:</label>
+            <input type="email" name="email" id="email" placeholder="Ingrese su email..." required>
+            <label for="contraseña">Contraseña:</label>
+            <input type="password" name="contraseña" id="contraseña" placeholder="Ingrese su password..." required>
+            <button type="submit">Iniciar</button>
+        </form>
+        <p>No tines una cuenta? <a href="/registro">Regístrate</a></p>
+    </div>
+</body>
+</html>
+
+4. //registro.html
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Registro</h2>
+        <form action="/registro" method="post">
+            <label for="nombre">Nombre:</label>
+            <input type="text" name="nombre" id="nombre" placeholder="Ingrese sua usuario..." required>
+            <label for="email">Correo electronico:</label>
+            <input type="email" name="email" id="email" placeholder="Ingrese su email..." required>
+            <label for="contraseña">Contraseña:</label>
+            <input type="password" name="contraseña" id="contraseña" placeholder="Ingrese su password..." required>
+            <button type="submit">Registrate</button>
+        </form>
+        <p>Ya tines una cuenta? <a href="/login">Inicia sesión</a></p>
+    </div>
+</body>
+</html>  
+5. //style.css
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: #f4f4f4;
+}
+
+.container {
+    width: 300px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+button {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+p {
+    margin-top: 10px;
+    text-align: center;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+6. //.gitignore
+
+node_modules
+
+
+
+'augusto', 
+'garzon',
+'8734593', 
+'augusto@der.com',
+'Barranquilla calle 20 No. 50-40',
+'8901',
+ 8901
+
+INSERT INTO compradores values(NULL,'diego',  'perez','6057318', 'diedar@hotmail.com','Bogota calle 166 No. 9-70', '2373',2673);
+
+
+'susana',  
+'mendez',
+'318', 
+'maria@hotmail.com',
+'Bogota calle 80 No. 9-70', 
+'4273',
+9073
+
+<!-- Este es un comentario en HTML -->

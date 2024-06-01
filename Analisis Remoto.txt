@@ -1,0 +1,112 @@
+Nuevos
+maria@der.com  con el codigo de compra disponible 5842
+1234
+fernando@der.com  con el codigo de compra disponible 6124
+4567
+augusto@der.com
+8901
+ricardo@der.com
+3673
+diedar@hotmail.com
+2373
+
+
+
+codigo_compra(disponibles):
+
+5842
+6124
+7983
+8126
+
+
+
+
+
+
+Desde esta linea que esta en APP.js
+Linea 98
+console.log(p);
+
+se insertan las siguientes lineas:
+
+p = data[0].nombre;
+console.log(typeof p);
+console.log(p);
+
+q = data[1].apellido;
+console.log(typeof q);
+console.log(q);
+
+r = data[2].telefono;
+console.log(typeof r);
+console.log(r);
+
+s = data[3].email;
+console.log(typeof s);
+console.log(s);
+
+t = data[4].email;
+console.log(typeof t);
+console.log(t);
+
+u = data[5].email;
+console.log(typeof u);
+console.log(u);
+
+v = data[6].dirección;
+console.log(typeof v);
+console.log(v);
+
+w = data[7].dirección;
+console.log(typeof w);
+console.log(w);
+
+x = data[8].codigo_compra;
+console.log(typeof x);
+console.log(x);
+
+o = data[9].tipo_producto;
+console.log(typeof o);
+console.log(o);
+
+m = data[10].cantidad;
+console.log(typeof m);
+console.log(m);
+
+n = data[10].fecha;
+console.log(typeof n);
+console.log(n);
+
+En el HTML
+
+<div id = "f"></div>
+<script src="../app.js"></script>
+<script src="../public/js/script.js"></script>
+
+
+En el JavaScript
+
+const f = document.getElementById("f");
+
+f.innerHTML = o;
+
+Donde o es una variable
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+

@@ -1,0 +1,142 @@
+SELECT * FROM pedidos as pe INNER JOIN compradores as c ON pe.compradores_id=c.id;
+SELECT nombre,apellido,telefono,email,dirección,codigoCompraCliente FROM pedidos as pe INNER JOIN compradores as c ON pe.compradores_id=c.id;
+SELECT * FROM pedidos as pe INNER JOIN productos as pr ON pe.productos_id=pr.id;
+SELECT cantidad,fecha FROM pedidos as pe INNER JOIN productos as pr ON pe.productos_id=pr.id;
+
+SELECT * FROM pedidos as pe INNER JOIN compradores as c ON pe.compradores_id=c.id;
+SELECT * FROM compradores as c INNER JOIN pedidos as pe ON c.id = pe.compradores_id;
+
+
+SELECT * FROM pedidos as pe INNER JOIN compradores as c WHERE pe.codigo_compra=c.codigoCompraCliente;
+
+
+SELECT * FROM compradores as c INNER JOIN pedidos as pe WHERE c.codigoCompraCliente=pe.codigo_compra;
+
+SELECT nombre,apellido,telefono,email,dirección FROM compradores as c INNER JOIN pedidos as pe WHERE c.codigoCompraCliente=pe.codigo_compra;
+
+SELECT nombre,apellido,telefono,email,dirección FROM compradores as c INNER JOIN pedidos as pe WHERE c.codigoCompraCliente=pe.codigo_compra;
+
+SELECT * FROM compradores as c INNER JOIN pedidos as pe WHERE c.codigoCompraCliente=pe.codigo_compra INNER JOIN productos as pr WHERE pe.productos_id = pr.id;
+
+SELECT * FROM pedidos as pe INNER JOIN compradores as c ON c.codigoCompraCliente=pe.codigo_compra INNER JOIN productos as pr ON pe.productos_id = pr.id;
+
+SELECT * FROM compradores as c INNER JOIN pedidos as pe ON c.codigoCompraCliente=pe.codigo_compra INNER JOIN productos as pr ON pe.productos_id = pr.id;
+
+SELECT nombre,apellido,telefono,email,dirección,codigo_compra,tipo_producto,cantidad,fecha FROM compradores as c INNER JOIN pedidos as pe ON c.codigoCompraCliente=pe.codigo_compra INNER JOIN productos as pr ON pe.productos_id = pr.id;
+
+como mostrar un resultado en una pagina html
+
+db.query('SELECT nombre,apellido,telefono,email,dirección,codigo_compra,tipo_producto,cantidad,fecha FROM compradores as c INNER JOIN pedidos as pe ON c.codigoCompraCliente=pe.codigo_compra INNER JOIN productos as pr ON pe.productos_id = pr.id
+VALUES (?, ?, ?, ?, ?, ?, ?)',[nombre, apellido, telefono, email, dirección, codigo_compra, tipo_producto,cantidad,fecha], (err, result, fields) => {
+  if (err) throw err;
+  console.log(result);
+});
+
+db.query('INSERT INTO compradores (nombre, apellido, telefono, email, dirección, codigoCompraCliente, contraseña) VALUES (?, ?, ?, ?, ?, ?, ?)',[nombre, apellido, telefono, email, dirección, codigoCompraCliente, hashedContraseña],(err, result)=>{
+    
+
+
+codigo_compra
+5842
+6124
+7983
+8126
+
+
+id    codigoCompraCliente
+
+1     876
+3     COINCIDE  6124
+4     12
+6     COINCIDE  8126
+
+
+
+id_1
+ffff@hhhh.com
+678  no
+
+id_3
+diedar@hotmail.com
+3112387075  no
+
+id_4
+d@p.com
+123  si
+
+id_6
+ddd@897
+456  si
+
+SELECT nombre,apellido,telefono,email,dirección,codigo_compra,tipo_producto,cantidad,fecha FROM compradores as c WHERE email = ddd@897 INNER JOIN pedidos as pe ON c.codigoCompraCliente=pe.codigo_compra INNER JOIN productos as pr ON pe.productos_id = pr.id;
+
+
+
+db.query('SELECT nombre,apellido,telefono,email,dirección,codigo_compra,tipo_producto,cantidad,fecha FROM compradores as c INNER JOIN pedidos as pe ON c.codigoCompraCliente=pe.codigo_compra INNER JOIN productos as pr ON pe.productos_id = pr.id');
+
+como extraer el valor de una consulta db.query en node.js
+
+
+const resultadoConsulta =JSON.parse['SELECT nombre,apellido,telefono,email,dirección,codigo_compra,tipo_producto,cantidad,fecha FROM compradores as c INNER JOIN pedidos as pe ON c.codigoCompraCliente=pe.codigo_compra INNER JOIN productos as pr ON pe.productos_id = pr.id'];
+
+[resultado], async (err, result) => {
+        if(err){
+            console.log(err);
+            res.send('Error');
+        } else {
+            console.log(result);
+
+
+Definitiva
+
+
+SELECT nombre,apellido,telefono,email,dirección,codigo_compra,tipo_producto,cantidad,fecha FROM compradores as c INNER JOIN pedidos as pe ON c.codigoCompraCliente=pe.codigo_compra INNER JOIN productos as pr ON pe.productos_id = pr.id WHERE c.email = "ddd@897";
+
+
+SELECT nombre,apellido,telefono,email,dirección,codigo_compra,tipo_producto,cantidad,fecha FROM compradores as c INNER JOIN pedidos as pe ON c.codigoCompraCliente=pe.codigo_compra INNER JOIN productos as pr ON pe.productos_id = pr.id WHERE c.email = y;
+
+db.query('SELECT nombre,apellido,telefono,email,dirección,codigo_compra,tipo_producto,cantidad,fecha FROM compradores as c INNER JOIN pedidos as pe ON c.codigoCompraCliente=pe.codigo_compra INNER JOIN productos as pr ON pe.productos_id = pr.id WHERE c.email = y',
+(err, resultahorasi, fields) => {
+    if (err) throw err;
+    console.log(resultahorasi);
+});
+
+
+Otro mejor
+
+const mysql = require('mysql');
+
+const conexion = mysql.createConnection({
+  host: 'localhost',
+  user: 'usuario',
+  password: 'contraseña',
+  database: 'mi_base_de_datos'
+});
+
+conexion.connect((error) => {
+  if (error) {
+    console.error('Error al conectar a MySQL:', error);
+    return;
+  }
+  console.log('Conexión exitosa con el identificador', conexion.threadId);
+
+  // Ejecutar una consulta
+  db.query('SELECT nombre,apellido,telefono,email,dirección,codigo_compra,tipo_producto,cantidad,fecha FROM compradores as c INNER JOIN pedidos as pe ON c.codigoCompraCliente=pe.codigo_compra INNER JOIN productos as pr ON pe.productos_id = pr.id WHERE c.email = y.email', (error, resultados, campos) => {
+    if (error) {
+      console.error('Error al ejecutar la consulta:', error);
+      return;
+    }
+    console.log('Resultados:', resultados);
+  });
+});
+
+
+'Resultados:',
+
+
+const [a, b, c, d, e, f, g, h, i] = Object.values(resultados);
+console.log(ticket2); // "B"
+console.log(ticket3); // "C"
+console.log(ticket4);
+
+const { a, b, c, d, e, f, g, h, i } = resultados;
